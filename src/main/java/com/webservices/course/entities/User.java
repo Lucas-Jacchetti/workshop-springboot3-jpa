@@ -1,9 +1,14 @@
 package com.webservices.course.entities;
 import java.io.Serializable;
 import java.util.Objects;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "tb_user") //renomeação da tabela do banco de dados para nao entrar em conflito com palavras reservadas
 public class User implements Serializable{ //trafego na rede, gravar em arquivo, etc
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incremento
     private Long id;   //atributos básicos
     private String name;
     private String email;
