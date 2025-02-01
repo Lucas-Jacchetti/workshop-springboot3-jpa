@@ -2,6 +2,7 @@ package com.webservices.course.config;
 
 import java.time.Instant;
 import java.util.Arrays;
+import com.webservices.course.entities.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import com.webservices.course.entities.Order;
 import com.webservices.course.entities.User;
 import com.webservices.course.entities.enums.OrderStatus;
+import com.webservices.course.repositories.CategoryRepository;
 import com.webservices.course.repositories.OrderRepository;
 import com.webservices.course.repositories.UserRepository;
 
@@ -27,8 +29,16 @@ public class TestConfig implements CommandLineRunner{
     @Autowired   //injeção de dependência
     private UserRepository userRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category c1 = new Category(null, "Electronics");
+        Category c2 = new Category(null, "Books");
+
+        categoryRepository.saveAll(Arrays.asList(c1, c2));
 
         User u1 = new User(null, "Maria", "maria@gmail.com", "97777777777", "12344568");
         User u2 = new User(null, "Carlos", "carlos@gmail.com", "99999999999", "12344568");
