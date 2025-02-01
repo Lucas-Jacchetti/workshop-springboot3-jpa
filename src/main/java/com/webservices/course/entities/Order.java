@@ -2,7 +2,9 @@ package com.webservices.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webservices.course.entities.enums.OrderStatus;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +35,13 @@ public class Order implements Serializable { //serializable para trafegar na red
     @JoinColumn(name = "client_id") //nome da chave estrangeira 
     private User client; //associacao com a classe User
 
+    @OneToMany(mappedBy = "id.order") //um pedido para muitos itens
+    private Set<OrderItem> items = new HashSet<>(); //set para garantir que nao vai ter item repetido no mesmo pedido
+
+    public Set<OrderItem> getItems() {
+        return this.items;
+    }
+    
     public Order() {  
 
     }

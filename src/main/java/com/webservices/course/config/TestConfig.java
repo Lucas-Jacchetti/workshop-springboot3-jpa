@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.webservices.course.entities.Order;
+import com.webservices.course.entities.OrderItem;
 import com.webservices.course.entities.Product;
 import com.webservices.course.entities.User;
 import com.webservices.course.entities.enums.OrderStatus;
 import com.webservices.course.repositories.CategoryRepository;
+import com.webservices.course.repositories.OrderItemRepository;
 import com.webservices.course.repositories.OrderRepository;
 import com.webservices.course.repositories.ProductRepository;
 import com.webservices.course.repositories.UserRepository;
@@ -37,6 +39,11 @@ public class TestConfig implements CommandLineRunner{
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
+
+
     @Override
     public void run(String... args) throws Exception {
         
@@ -49,14 +56,6 @@ public class TestConfig implements CommandLineRunner{
         Product p1 = new Product(null, "McLaren Lego", "Versão 2024", 330.5, "");
         Product p2 = new Product(null, "Lego Star Wars", "Versão 2023", 930.5, "");
 
-        categoryRepository.saveAll(Arrays.asList(c1, c2));
-        productRepository.saveAll(Arrays.asList(p1, p2));
-
-        p1.getCategories().add(c2); //adicionando a categoria ao produto
-        p2.getCategories().add(c1);
-
-        productRepository.saveAll(Arrays.asList(p1, p2));
-
         User u1 = new User(null, "Maria", "maria@gmail.com", "97777777777", "12344568");
         User u2 = new User(null, "Carlos", "carlos@gmail.com", "99999999999", "12344568");
 
@@ -66,7 +65,23 @@ public class TestConfig implements CommandLineRunner{
 
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        categoryRepository.saveAll(Arrays.asList(c1, c2));
+        productRepository.saveAll(Arrays.asList(p1, p2));
+
+        p1.getCategories().add(c2); //adicionando a categoria ao produto
+        p2.getCategories().add(c1);
+
+        productRepository.saveAll(Arrays.asList(p1, p2));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p2, 1, p2.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p1, 3, p1.getPrice());
+        
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3));
+    
     }
+
 
 
 }
