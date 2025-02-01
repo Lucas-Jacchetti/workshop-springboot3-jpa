@@ -15,17 +15,18 @@ import com.webservices.course.services.UserServices;
     //!Camada de recursos (resource layer) - controladores Rest!
 
 //*controlador rest que responde no caminho /users
-@RestController
-@RequestMapping(value = "/users")       
+@RestController // Anotação que indica que é um controlador Rest*
+@RequestMapping(value = "/users") //
 public class UserResource {
+    //put, get, post, delete, patch, options, head (metodos http)
 
     @Autowired
     private UserServices service; // Injeção de dependência para o serviço*
     
-    @GetMapping
+    @GetMapping // GET "/users" 
     public ResponseEntity <List<User>> findAll(){  //O método findAll é um endpoint para acessar os usuários*//
         
-        List<User> list = service.findAll(); // O método findAll é um endpoint para acessar os usuários*
+        List<User> list = service.findAll(); 
         
         return ResponseEntity.ok().body(list); // Retorna a resposta com sucesso*
     }

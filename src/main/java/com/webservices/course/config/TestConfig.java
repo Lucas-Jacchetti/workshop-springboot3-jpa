@@ -9,8 +9,11 @@ import org.springframework.context.annotation.Profile;
 import com.webservices.course.entities.User;
 import com.webservices.course.repositories.UserRepository;
 
+//*Definir bins e instancias de classe no spring */
+//controlar classes que nao sao originarias do spring
+
 @Configuration //especificar que é uma classe de configuração para o spring
-@Profile("test")
+@Profile("test") //especificar o perfil
 public class TestConfig implements CommandLineRunner{
     
     @Autowired   //injeção de dependência

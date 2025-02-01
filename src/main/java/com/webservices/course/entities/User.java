@@ -1,5 +1,7 @@
 package com.webservices.course.entities;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import jakarta.persistence.*;
 
@@ -14,6 +16,10 @@ public class User implements Serializable{ //trafego na rede, gravar em arquivo,
     private String email;
     private String phone;
     private String password;
+
+    //mapeado pelo atributo client da classe Order
+    @OneToMany(mappedBy = "client") //um usuario para muitos pedidos    
+    private List<Order> orders = new ArrayList<>(); //associação com a classe Order
     
     //*Construtores */
     public User() {
@@ -28,6 +34,11 @@ public class User implements Serializable{ //trafego na rede, gravar em arquivo,
     }
 
     //*Getters e setters*//
+
+    public List<Order> getOrders() {
+        return this.orders;
+    }
+
     public Long getId() {
         return this.id;
     }
