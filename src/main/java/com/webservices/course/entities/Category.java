@@ -1,7 +1,9 @@
 package com.webservices.course.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -15,6 +17,12 @@ public class Category implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    private Set<Product> products = new HashSet<>();
+
+    public Set<Product> getProducts() {
+        return this.products;
+    }
 
     public Category() {
     }
