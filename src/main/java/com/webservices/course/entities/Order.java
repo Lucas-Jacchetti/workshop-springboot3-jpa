@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +21,8 @@ public class Order implements Serializable { //serializable para trafegar na red
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incremento
     private Long id;   //atribuicoes basicas 
+
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") //formato de data ISO8601
     private Instant moment;
 
     @ManyToOne //muitos pedidos para um usuario

@@ -3,6 +3,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,7 +20,7 @@ public class User implements Serializable{ //trafego na rede, gravar em arquivo,
     private String phone;
     private String password;
 
-    //mapeado pelo atributo client da classe Order
+    @JsonIgnore //para evitar loop infinito
     @OneToMany(mappedBy = "client") //um usuario para muitos pedidos    
     private List<Order> orders = new ArrayList<>(); //associação com a classe Order
     
