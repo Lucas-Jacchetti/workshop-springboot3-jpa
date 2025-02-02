@@ -2,7 +2,6 @@ package com.webservices.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +19,7 @@ public class Payment implements Serializable{
     private Long id;
     private Instant moment;
 
+    @JsonIgnore
     @OneToOne
     @MapsId //para garantir que o id do pagamento seja o mesmo do pedido
     private Order order;
