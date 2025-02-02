@@ -3,9 +3,11 @@ package com.webservices.course.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.webservices.course.entities.User;
 import com.webservices.course.repositories.UserRepository;
+import com.webservices.course.services.exceptions.DataBaseException;
 import com.webservices.course.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -28,7 +30,17 @@ public class UserServices { // Classe de serviço
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try{
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+            
+        }repository.deleteById(id);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
+        
     }
 
     public User update(Long id, User obj){
